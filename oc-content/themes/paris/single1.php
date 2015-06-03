@@ -96,7 +96,7 @@
 					<p><?php voting_item_detail(); ?></p>
 <div class="add-to-box">
 <!-- Small modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-shopping-cart"></i> <?php _e('Book Now', 'paris'); ?></button><?php osc_current_web_theme_path('common/'.osc_get_preference('wl-us', 'paris').'-watchlist.php') ; ?>
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bs-example-modal-sm"><i class="fa fa-calendar"></i> <?php _e('Book now', 'paris'); ?></button><?php osc_current_web_theme_path('common/'.osc_get_preference('wl-us', 'paris').'-watchlist.php') ; ?>
 </div>
 
 <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
@@ -116,19 +116,11 @@
 
 
 <div id="contact">
-                    <button type="button" class="btn btn-primary btn-lg btn-block"><strong><?php _e("Contact seller", 'paris'); ?></strong></button>
-
-                    <?php if( osc_item_is_expired () ) { ?>
+                    <button type="button" class="btn btn-primary btn-lg btn-block"><strong><?php _e("Call and Book", 'paris'); ?></strong></button>
+                    
+                    <?php if( 0 /*osc_reg_user_can_contact() && !osc_is_web_user_logged_in()*/ ) { ?>
                         <p>
-                            <?php _e("The listing is expired. You can't contact the publisher.", 'paris'); ?>
-                        </p>
-                    <?php } else if( ( osc_logged_user_id() == osc_item_user_id() ) && osc_logged_user_id() != 0 ) { ?>
-                        <p>
-                            <?php _e("It's your own listing, you can't contact the publisher.", 'paris'); ?>
-                        </p>
-                    <?php } else if( osc_reg_user_can_contact() && !osc_is_web_user_logged_in() ) { ?>
-                        <p>
-                            <?php _e("You must log in or register a new account in order to contact the advertiser", 'paris'); ?>
+                            <?php _e("You must log in or register a new account in order to book", 'paris'); ?>
                         </p>
                         <p class="contact_button">
                             <button type="button" class="btn btn-default btn-lg btn-block"><strong><a href="<?php echo osc_user_login_url(); ?>"><?php _e('Login', 'paris'); ?></a></strong></button>
@@ -138,31 +130,13 @@
                     <?php } else { ?>
                         <?php if( osc_item_user_id() != null ) { ?>
                                 
-<button type="button" class="btn btn-default btn-lg btn-block">
-                            <strong><p class="name"><?php _e('Name', 'paris') ?>: <a href="<?php echo osc_user_public_profile_url( osc_item_user_id() ); ?>" ><?php echo osc_item_contact_name(); ?></a></p></strong></button>
+						<a type="button" class="btn btn-default btn-lg btn-block" href="tel:<?php echo osc_seller_contact_number(osc_item_id()); ?>">
+                            <strong><p class="name"><i class="fa fa-phone-square"> </i> +(91)- <?php echo osc_seller_contact_number(osc_item_id()); ?></p></strong></a>
                         <?php } else { ?>
-                            <button type="button" class="btn btn-default btn-lg btn-block"><strong><p class="name"><?php _e('Name', 'paris') ?>: <?php echo osc_item_contact_name(); ?></p></strong></button>
-                        <?php } ?>
-                        <?php if( osc_item_show_email() ) { ?>
-                            <button type="button" class="btn btn-default btn-lg btn-block"><strong><p class="email"><?php _e('E-mail', 'paris'); ?>: <?php echo osc_item_contact_email(); ?></p></strong></button>
-                        <?php } ?>
-                        
-<?php if ( osc_user_phone() != '' ) { ?>
-                           <button type="button" class="btn btn-default btn-lg btn-block"><strong> <p class="phone"><?php _e("Phone", 'paris'); ?>: <?php echo osc_user_phone(); ?></p></strong></button>
-                        <?php } ?>
-
-<?php if ( osc_user_address() != '' ) { ?>
-                           <button type="button" class="btn btn-default btn-lg btn-block"><strong> <p class="address"><?php _e("Address", 'paris'); ?>: <?php echo osc_user_address(); ?></p></strong></button>
-                        <?php } ?>
-
-<?php if ( osc_user_city() != '' ) { ?>
-                           <button type="button" class="btn btn-default btn-lg btn-block"><strong> <p class="city"><?php _e("City", 'paris'); ?>: <?php echo osc_user_city(); ?></p></strong></button>
-                        <?php } ?>
-
-<?php if ( osc_user_region() != '' ) { ?>
-                           <button type="button" class="btn btn-default btn-lg btn-block"><strong> <p class="region"><?php _e("Region", 'paris'); ?>: <?php echo osc_user_region(); ?></p></strong></button>
-                        <?php } ?>
-
+                            <button type="button" class="btn btn-default btn-lg btn-block"><strong><p class="name"><i class="fa fa-phone-square">   </i>  +(91)- <?php echo osc_seller_contact_number(osc_item_id()); ?></p></strong></button>
+                        <?php } ?>                        
+						<br/>
+						<p class="text-success"><?php _e("Online Booking Coming Soon ", 'paris'); ?><i class="fa fa-exclamation"></i><i class="fa fa-exclamation"></i></p>
 
 
 
@@ -229,7 +203,7 @@
                                 <?php while ( osc_has_item_meta() ) { ?>
                                     <?php if(osc_item_meta_value()!='') { ?>
                                         <div class="meta">
-                                            <strong><?php echo osc_item_meta_name(); ?>:</strong> <?php echo osc_item_meta_value(); ?>
+                                            <strong><?php echo osc_item_meta_name(); ?> :</strong> <?php echo osc_item_meta_value(); ?>
                                         </div>
                                     <?php } ?>
                                 <?php } ?>
@@ -450,8 +424,8 @@ width: 100%;
                 </div>
                 <!-- plugins -->
                 
-                
-                <?php osc_current_web_theme_path('popular1.php'); ?>
+                <?php if(osc_get_preference('popular-dis', 'paris')=='yes'){
+                 osc_current_web_theme_path('popular1.php'); }?>
                 
             </div>
             <div id="sidebar" class="col-md-2">
@@ -492,8 +466,7 @@ jQuery(document).ready(function($){
 	})
 
 
-	$('#image2').addimagezoom() // single image zoom with default options
-	
+	$('#image2').addimagezoom() // single image zoom with default options	
 })
 
 </script>
