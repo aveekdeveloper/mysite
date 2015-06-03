@@ -279,11 +279,11 @@
 								<label for="sCity"><?php _e('Categories', 'paris'); ?></label>
 								<?php chosen_select_standard() ; ?>
 							</div><div class="form-group">
-								<label for="sCity"><?php _e('Location', 'paris'); ?></label>
+								<label for="sCity"><?php _e('Region/City', 'paris'); ?></label>
 								<?php chosen_region_select() ; ?>
 							</div>
                                                          <div class="form-group">
-								<label for="sCity"><?php _e('City', 'paris'); ?></label>
+								<label for="sCity"><?php _e('Locality', 'paris'); ?></label>
 								<input type="text" class="form-control" id="sCity" name="sCity" value="<?php echo osc_esc_html( osc_search_city() ); ?>" />
                                 <input type="hidden" id="sRegion" name="sRegion" value="" />
 							</div>
